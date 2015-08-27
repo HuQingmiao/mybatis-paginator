@@ -22,7 +22,7 @@ import java.util.concurrent.*;
 
 
 /**
- * 为MyBatis提供基于数据库方言的分页插件
+ * 为myBatis提供基于数据库方言的分页插件
  * <p/>
  * 本类是对com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor的重构(原作者是：badqiu、miemiedev)。
  * <p/>
