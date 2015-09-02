@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class PageBounds extends RowBounds implements Serializable {
     private static final long serialVersionUID = -6414350656252331011L;
 
-    public final static int NO_ROW_OFFSET = 1;
+    public final static int NO_ROW_OFFSET = 0;
     public final static int NO_ROW_LIMIT = Integer.MAX_VALUE;
 
     private int offset = NO_ROW_OFFSET;
@@ -63,7 +63,7 @@ public class PageBounds extends RowBounds implements Serializable {
     }
 
     /**
-     * @param offset  起始行号，取值范围从1开始
+     * @param offset  起始行号，取值范围从0开始
      * @param limit   记录条数
      * @param orders  排序
      * @param ifCount 是否对总的结果集进行count
