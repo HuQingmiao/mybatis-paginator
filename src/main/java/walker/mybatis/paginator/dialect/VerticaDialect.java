@@ -14,10 +14,11 @@ public class VerticaDialect extends Dialect {
         super(mappedStatement, parameterObject, pageBounds);
     }
 
-    protected String getLimitString(String sql, String offsetName, int offset, String limitName, int limit) {
+    @Override
+    protected String getLimitString(String sql, int offset, int limit) {
         StringBuffer buffer = new StringBuffer(sql.length() + 20).append(sql);
         if (offset > 0) {
-            buffer.append(" OFFSET ").append(offset - 1).append(" LIMIT ").append(limit);
+            buffer.append(" OFFSET ").append(offset).append(" LIMIT ").append(limit);
         } else {
             buffer.append(" LIMIT ").append(limit);
         }

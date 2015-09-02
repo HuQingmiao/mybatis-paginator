@@ -27,7 +27,8 @@ public class OracleDialect extends Dialect {
         super(mappedStatement, parameterObject, pageBounds);
     }
 
-    protected String getLimitString(String sql, String offsetName, int offset, String limitName, int limit) {
+    @Override
+    protected String getLimitString(String sql, int offset, int limit) {
         final String select = "SELECT ";
         final String from = " FROM ";
 
@@ -77,11 +78,11 @@ public class OracleDialect extends Dialect {
         pagerSql.append(WALKER_PAGER_ROW);
         pagerSql.append(" FROM (").append(sql).append(") ");
         pagerSql.append(WALKER_A);
-        pagerSql.append(" WHERE ROWNUM < ").append(offset + limit);
+        pagerSql.append(" WHERE ROWNUM < ").append(offset + 1 + limit);
         pagerSql.append(" ) ").append(WALKER_B);
         pagerSql.append(" WHERE ");
         pagerSql.append(WALKER_B).append('.').append(WALKER_PAGER_ROW);
-        pagerSql.append(" >= ").append(offset);
+        pagerSql.append(" > ").append(offset);
 
         colStr.delete(0, colStr.length());
 
