@@ -60,7 +60,8 @@ public class Dialect {
             bufferSql.deleteCharAt(bufferSql.length() - 1);
         }
         String sql = bufferSql.toString();
-        pageSQL = sql;
+        pageSQL = sql.replaceAll("\t"," ").trim();
+
         if (pageBounds.getOrders() != null && !pageBounds.getOrders().isEmpty()) {
             pageSQL = getSortString(sql, pageBounds.getOrders());
         }
@@ -69,7 +70,9 @@ public class Dialect {
             pageSQL = getLimitString(pageSQL, pageBounds.getOffset(), pageBounds.getLimit());
         }
 
-        countSQL = getCountString(sql);
+        if(pageBounds.isIfCount()){
+            countSQL = getCountString(sql);
+        }
     }
 
 
@@ -180,5 +183,34 @@ public class Dialect {
             }
         }
         return -1;
+    }
+
+    public static void main(String[] args) {
+       String sql = "\t \tSELECT AC_ORG as FRT_ACC_ORG, AC_TYP as FRT_AC_TYP, CAP_TYP as FRT_CAP_TYP, CCY as FRT_CCY,\n" +
+               "\t\tSUM( CASE WHEN UPD_DT > #{sumDt} THEN LAST_AC_BAL ELSE CUR_AC_BAL END ) AS FRT_AC_BAL\n" +
+               "\t\tFROM ACTTACBL \n" +
+               "\t\tGROUP BY AC_ORG, AC_TYP, CAP_TYP, CCY   ";
+
+        String sql2 = "SELECT book_id,title,cost,publish_time,blob_content,text_content,update_time\n" +
+                "        FROM book\n" +
+                "         WHERE  title like ?\n" +
+                "            \n" +
+                "            \n" +
+                "               AND cost >= ?\n" +
+                "            \n" +
+                "            \n" +
+                "                  AND cost < ?";
+
+        sql = sql.replaceAll("\t"," ");
+
+        //System.out.println(sql);
+
+       // sql = sql.replaceAll("\t"," ");
+
+        //System.out.println(sql);
+
+        //System.out.println(indexIgloreCase(sql, " FROM ",0,sql.length()));
+
+       //System.out.println(indexIgloreCase(sql2, " FROM ",0,sql.length()));
     }
 }
