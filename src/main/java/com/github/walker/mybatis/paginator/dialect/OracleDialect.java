@@ -1,6 +1,6 @@
-package walker.mybatis.paginator.dialect;
+package com.github.walker.mybatis.paginator.dialect;
 
-import walker.mybatis.paginator.PageBounds;
+import com.github.walker.mybatis.paginator.PageBounds;
 import org.apache.ibatis.mapping.MappedStatement;
 
 import java.util.StringTokenizer;

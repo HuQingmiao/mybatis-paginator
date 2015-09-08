@@ -1,7 +1,7 @@
-package walker.mybatis.paginator.dialect;
+package com.github.walker.mybatis.paginator.dialect;
 
-import walker.mybatis.paginator.Order;
-import walker.mybatis.paginator.PageBounds;
+import com.github.walker.mybatis.paginator.Order;
+import com.github.walker.mybatis.paginator.PageBounds;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;

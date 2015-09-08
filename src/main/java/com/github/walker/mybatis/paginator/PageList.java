@@ -1,4 +1,4 @@
-package walker.mybatis.paginator;
+package com.github.walker.mybatis.paginator;
 
 import java.util.ArrayList;
 import java.util.Collection;

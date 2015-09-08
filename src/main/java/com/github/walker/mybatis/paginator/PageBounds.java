@@ -1,4 +1,4 @@
-package walker.mybatis.paginator;
+package com.github.walker.mybatis.paginator;
 
 import org.apache.ibatis.session.RowBounds;
 

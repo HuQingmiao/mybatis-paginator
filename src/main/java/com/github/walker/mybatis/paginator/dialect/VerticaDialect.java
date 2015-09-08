@@ -1,29 +1,27 @@
-package walker.mybatis.paginator.dialect;
+package com.github.walker.mybatis.paginator.dialect;
 
-import walker.mybatis.paginator.PageBounds;
+import com.github.walker.mybatis.paginator.PageBounds;
 import org.apache.ibatis.mapping.MappedStatement;
 
 /**
- * mysql分页Dialect
+ * Vertica分页逻辑
  * <p/>
- * 重写mysql的分页语句.
- *
- * @author HuQingmiao
+ * Created by Huqingmiao on 2015/4/14.
  */
-public class MySQLDialect extends Dialect {
+public class VerticaDialect extends Dialect {
 
-    public MySQLDialect(MappedStatement mappedStatement, Object parameterObject, PageBounds pageBounds) {
+    public VerticaDialect(MappedStatement mappedStatement, Object parameterObject, PageBounds pageBounds) {
         super(mappedStatement, parameterObject, pageBounds);
     }
 
+    @Override
     protected String getLimitString(String sql, int offset, int limit) {
         StringBuffer buffer = new StringBuffer(sql.length() + 20).append(sql);
         if (offset > 0) {
-            buffer.append(" LIMIT ").append(offset).append(",").append(limit);
+            buffer.append(" OFFSET ").append(offset).append(" LIMIT ").append(limit);
         } else {
             buffer.append(" LIMIT ").append(limit);
         }
         return buffer.toString();
     }
-
 }

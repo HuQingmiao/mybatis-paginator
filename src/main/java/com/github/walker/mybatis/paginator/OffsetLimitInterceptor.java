@@ -1,8 +1,8 @@
-package walker.mybatis.paginator;
+package com.github.walker.mybatis.paginator;
 
 
-import walker.mybatis.paginator.dialect.Dialect;
-import walker.mybatis.paginator.support.SQLHelp;
+import com.github.walker.mybatis.paginator.dialect.Dialect;
+import com.github.walker.mybatis.paginator.support.SQLHelp;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;

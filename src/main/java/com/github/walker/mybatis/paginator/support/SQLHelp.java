@@ -1,6 +1,6 @@
-package walker.mybatis.paginator.support;
+package com.github.walker.mybatis.paginator.support;
 
-import walker.mybatis.paginator.dialect.Dialect;
+import com.github.walker.mybatis.paginator.dialect.Dialect;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.slf4j.Logger;

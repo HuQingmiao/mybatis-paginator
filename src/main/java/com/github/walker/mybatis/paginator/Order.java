@@ -1,4 +1,4 @@
-package walker.mybatis.paginator;
+package com.github.walker.mybatis.paginator;
 
 import java.io.Serializable;
 import java.util.LinkedList;

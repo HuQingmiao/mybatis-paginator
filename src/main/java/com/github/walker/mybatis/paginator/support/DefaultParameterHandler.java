@@ -1,4 +1,4 @@
-package walker.mybatis.paginator.support;
+package com.github.walker.mybatis.paginator.support;
 
 import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.executor.ExecutorException;
