@@ -1,12 +1,13 @@
 package com.github.walker.mybatis.paginator;
 
+import com.github.walker.mybatis.paginator.utils.MappingUtil;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
- *
  * @author miemiedev
  */
 public class Order implements Serializable {
@@ -15,7 +16,10 @@ public class Order implements Serializable {
     private String property;
     private String orderExpr;
 
-    public Order(String property, Direction direction, String orderExpr) {
+    private Order() {
+    }
+
+    private Order(String property, Direction direction, String orderExpr) {
         this.direction = direction;
         this.property = property;
         this.orderExpr = orderExpr;
@@ -63,7 +67,13 @@ public class Order implements Serializable {
             }
             return String.format(orderExpr.replaceAll("\\?", "%s"), property, direction == null ? "" : " " + direction.name());
         }
-        return property + (direction == null ? "" : " " + direction.name());
+
+        //如果排序属性中含有"_"，或仅含小写字母、数字，或仅含大写字母、数据， 则被认为是是列名，不需要再转换
+        if (property.contains("_") || property.matches("[a-z0-9]+") || property.matches("[A-Z0-9]+")) {
+            return property + (direction == null ? "" : " " + direction.name());
+        } else {
+            return MappingUtil.getColumnName(property) + (direction == null ? "" : " " + direction.name());
+        }
     }
 
 
@@ -133,5 +143,25 @@ public class Order implements Serializable {
                 return ASC;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        String a = "aasb";
+        System.out.println(a.contains("_") || a.matches("[a-z0-9]+") || a.matches("[A-Z0-9]+"));
+
+        a = "AASB";
+        System.out.println(a.contains("_") || a.matches("[a-z0-9]+") || a.matches("[A-Z0-9]+"));
+
+        a = "aasb12";
+        System.out.println(a.contains("_") || a.matches("[a-z0-9]+") || a.matches("[A-Z0-9]+"));
+
+        a = "AASB12";
+        System.out.println(a.contains("_") || a.matches("[a-z0-9]+") || a.matches("[A-Z0-9]+"));
+
+        a = "aasb_12";
+        System.out.println(a.contains("_") || a.matches("[a-z0-9]+") || a.matches("[A-Z0-9]+"));
+
+
+        System.out.println(MappingUtil.getColumnName(a));
     }
 }
