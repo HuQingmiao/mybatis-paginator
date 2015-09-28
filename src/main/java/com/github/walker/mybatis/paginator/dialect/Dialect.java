@@ -14,9 +14,9 @@ import java.util.Map;
 
 /**
  * 分页Dialect
- *
+ * <p/>
  * 本类是对com.github.miemiedev.mybatis.paginator.dialect的改进(原作者是：badqiu、miemiedev)。
- *
+ * <p/>
  * 修改了count语句低效的问题； 修改了oracle分页取不出数据的BUG; 修改了mysql分页低效的问题。
  *
  * @author HuQingmiao
@@ -60,7 +60,12 @@ public class Dialect {
             bufferSql.deleteCharAt(bufferSql.length() - 1);
         }
         String sql = bufferSql.toString();
-        pageSQL = sql.replaceAll("\t"," ").trim();
+
+        //替换制表符
+        pageSQL = sql.replaceAll("\t", " ").trim();
+
+        //合并空格符
+        pageSQL = pageSQL.replaceAll("\\s{1,}", " ");
 
         if (pageBounds.getOrders() != null && !pageBounds.getOrders().isEmpty()) {
             pageSQL = getSortString(sql, pageBounds.getOrders());
@@ -70,7 +75,7 @@ public class Dialect {
             pageSQL = getLimitString(pageSQL, pageBounds.getOffset(), pageBounds.getLimit());
         }
 
-        if(pageBounds.isIfCount()){
+        if (pageBounds.isIfCount()) {
             countSQL = getCountString(sql);
         }
     }
@@ -115,16 +120,14 @@ public class Dialect {
      * @return 总记录数的sql
      */
     protected String getCountString(String sql) {
-        //return "select count(1) from (" + sql + ") tmp_count";
+
+        //若含有DISTINCT
+        if (sql.toUpperCase().startsWith("SELECT DISTINCT ")) {
+            return "SELECT COUNT(1) FROM (" + sql + ") WALKER_COUNT";
+        }
 
         // 为提升SQL性能，在count时去掉order by 子句。 -Updated by HuQingmiao 2015-08-25
-        final String orderBy = " ORDER BY ";
-
-        // 去掉ORDER BY 子句
-        int orderPosi = sql.indexOf(orderBy);
-        if (orderPosi < 0) {
-            orderPosi = sql.indexOf(orderBy.toLowerCase());
-        }
+        int orderPosi = this.indexIgloreCase(sql, " ORDER BY ", 0, sql.length());
         if (orderPosi > 0) {
             sql = sql.substring(0, orderPosi);
         }
@@ -173,23 +176,15 @@ public class Dialect {
      * @author HuQingmiao
      */
     protected int indexIgloreCase(String baseStr, String indexedStr, int startPos, int endPos) {
-
-        int baseLength = baseStr.length();
-        int indexedLength = indexedStr.length();
-
-        for (int i = startPos; i < (baseLength - indexedLength) && i < endPos; i++) {
-            if (indexedStr.equalsIgnoreCase(baseStr.substring(i, i + indexedLength))) {
-                return i;
-            }
-        }
-        return -1;
+        String str = baseStr.toUpperCase();
+        return str.indexOf(indexedStr.toUpperCase());
     }
 
     public static void main(String[] args) {
-       String sql = "\t \tSELECT AC_ORG as FRT_ACC_ORG, AC_TYP as FRT_AC_TYP, CAP_TYP as FRT_CAP_TYP, CCY as FRT_CCY,\n" +
-               "\t\tSUM( CASE WHEN UPD_DT > #{sumDt} THEN LAST_AC_BAL ELSE CUR_AC_BAL END ) AS FRT_AC_BAL\n" +
-               "\t\tFROM ACTTACBL \n" +
-               "\t\tGROUP BY AC_ORG, AC_TYP, CAP_TYP, CCY   ";
+        String sql = "\t \tSELECT AC_ORG as FRT_ACC_ORG, AC_TYP as FRT_AC_TYP, CAP_TYP as FRT_CAP_TYP, CCY as FRT_CCY, " +
+                " SUM( CASE WHEN UPD_DT > #{sumDt} THEN LAST_AC_BAL ELSE CUR_AC_BAL END ) AS FRT_AC_BAL\n" +
+                " FROM ACTTACBL " +
+                " GROUP BY AC_ORG, AC_TYP, CAP_TYP, CCY   ";
 
         String sql2 = "SELECT book_id,title,cost,publish_time,blob_content,text_content,update_time\n" +
                 "        FROM book\n" +
@@ -201,16 +196,16 @@ public class Dialect {
                 "            \n" +
                 "                  AND cost < ?";
 
-        sql = sql.replaceAll("\t"," ");
 
-        //System.out.println(sql);
+        System.out.println(sql);
 
-       // sql = sql.replaceAll("\t"," ");
+        //System.out.println(indexIgloreCase(sql, " FROM ", 0, sql.length()));
 
-        //System.out.println(sql);
+        //System.out.println(indexIgloreCase(sql2, " FROM ", 0, sql.length()));
 
-        //System.out.println(indexIgloreCase(sql, " FROM ",0,sql.length()));
+        String st = "asfas    b   sd ";
 
-       //System.out.println(indexIgloreCase(sql2, " FROM ",0,sql.length()));
+        String test = st.trim().replaceAll("\\s{1,}", " ");
+        System.out.println(test + "<<");
     }
 }
