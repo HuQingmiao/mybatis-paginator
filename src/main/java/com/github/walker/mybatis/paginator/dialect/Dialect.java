@@ -123,7 +123,7 @@ public class Dialect {
 
         //若含有DISTINCT
         if (sql.toUpperCase().startsWith("SELECT DISTINCT ")) {
-            return "SELECT COUNT(1) FROM (" + sql + ") WALKER_COUNT";
+            return "SELECT COUNT(1) FROM (" + sql + ") " +WALKER_COUNT;
         }
 
         // 为提升SQL性能，在count时去掉order by 子句。 -Updated by HuQingmiao 2015-08-25
