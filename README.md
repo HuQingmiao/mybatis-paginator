@@ -1,4 +1,4 @@
-﻿# mybatis-paginator，为myBatis提供的基于mysql/oracle数据库的分页插件。
+﻿## mybatis-paginator，为myBatis提供的基于mysql/oracle数据库的分页插件。 其程序调用接口不是传页码，而是传offset，这就使得可以从表中获取任意起止行的记录。
 
 
 ###使用本分页插件，在mybatis.xml添加如下配置即可:
