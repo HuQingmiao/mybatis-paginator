@@ -1,11 +1,12 @@
 ﻿# mybatis-paginator，为myBatis提供的基于mysql/oracle数据库的分页插件。
 
-···
+
 使用本分页插件，在mybatis.xml添加如下配置即可:
+···
     <plugins>
 	<plugin interceptor="OffsetLimitInterceptor">
     </plugins>
-
+···
 
 代码示例：
 
@@ -38,4 +39,4 @@
             log.info(book.getBookId() + " " + book.getTitle() + " " + book.getCost());
         }
     }
-···
+
