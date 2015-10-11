@@ -4,7 +4,9 @@
 使用本分页插件，在mybatis.xml添加如下配置即可:
 <pre>
     <plugins>
-	<plugin interceptor="OffsetLimitInterceptor">
+        <plugin interceptor="com.github.walker.mybatis.paginator.OffsetLimitInterceptor">
+            <property name="dialectClass" value="com.github.walker.mybatis.paginator.dialect.MySQLDialect"/>
+        </plugin>
     </plugins>
 </pre>
 
