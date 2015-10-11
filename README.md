@@ -1,17 +1,17 @@
 ﻿# mybatis-paginator，为myBatis提供的基于mysql/oracle数据库的分页插件。
 
 
-使用本分页插件，在mybatis.xml添加如下配置即可:
-<pre>
+###使用本分页插件，在mybatis.xml添加如下配置即可:
+```
     <plugins>
         <plugin interceptor="com.github.walker.mybatis.paginator.OffsetLimitInterceptor">
             <property name="dialectClass" value="com.github.walker.mybatis.paginator.dialect.MySQLDialect"/>
         </plugin>
     </plugins>
-</pre>
+```
 
-代码示例：
-
+###代码示例：
+```
     public void findBooks() {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("title", "%UNIX%");
@@ -30,7 +30,7 @@
 	//如果想排序的话,以逗号分隔多项排序,若查询语句中有ORDER BY, 则仍然会以此为准。
         String sortString = "cost.asc, book_id.desc";
 	
-	  //取第4条后面的3条记录
+	//取第4条后面的3条记录
         PageBounds pageBounds = new PageBounds(4, 3, Order.formString(sortString));
         List<Book> bookList = bookDao.find(paramMap, pageBounds);
 
@@ -41,4 +41,4 @@
             log.info(book.getBookId() + " " + book.getTitle() + " " + book.getCost());
         }
     }
-
+```
