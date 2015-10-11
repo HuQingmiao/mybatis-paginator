@@ -2,11 +2,11 @@
 
 
 使用本分页插件，在mybatis.xml添加如下配置即可:
-···
+<pre>
     <plugins>
 	<plugin interceptor="OffsetLimitInterceptor">
     </plugins>
-···
+</pre>
 
 代码示例：
 
