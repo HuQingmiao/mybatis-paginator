@@ -1,10 +1,11 @@
 
 ## mybatis-paginator-20150827
-mybatis-paginator，为myBatis提供的基于mysql/oracle等数据库的分页插件。目前，mybatis的分页插件有不少，但多数分页插件接受的参数是页码、第页的记录条数，这就使得并不能查询从任意起始止到任意结束行的记录。 为此，我参考网友miemiedev的同名项目代码，重新设计了本款分页插件，使得可以查询任意起止行范围内的记录，并对count()等SQL进行了优化。
+mybatis-paginator，为采用myBatis的项目提供支持mysql/oracle等数据库的分页插件。目前，mybatis的分页插件不少，但多数分页插件接受的参数是页码、第页的记录条数，这就使得并不能查询从任意起始止到任意结束行的记录。为此，我参考网友miemiedev的同名项目代码，重新设计了本款分页插件，使得可以查询任意起止行范围内的记录，并对count()等SQL进行了优化。
+ 
  
 ##使用本分页插件，步骤如下：
-∙∙∙∙1. 使用本分页插件，先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1kTF7xf5 密码: p154)，然后将这个jar包引入到你的工程。
-∙∙∙∙2. 在你的工程的mybatis.xml中，添加如下配置:
+1. 使用本分页插件，先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1kTF7xf5 密码: p154)，然后将这个jar包引入到你的工程。
+2. 在你的工程的mybatis.xml中，添加如下配置:
 ```
     <plugins>
         <plugin interceptor="com.github.walker.mybatis.paginator.OffsetLimitInterceptor">
@@ -12,7 +13,7 @@ mybatis-paginator，为myBatis提供的基于mysql/oracle等数据库的分页�
         </plugin>
     </plugins>
 ```
-∙∙∙∙3. 在你的工程的业务层代码中，通过如下方式调用分页接口：
+3. 在你的工程的业务层代码中，通过如下方式调用分页接口：
 ```
     public void findBooks() {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -44,6 +45,7 @@ mybatis-paginator，为myBatis提供的基于mysql/oracle等数据库的分页�
         }
     }
 ```
+
 
 ##参与开发本分页插件，请知道：
 ####编译环境
