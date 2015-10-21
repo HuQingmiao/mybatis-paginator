@@ -54,5 +54,5 @@ mybatis-paginator，为采用myBatis的项目提供支持mysql/oracle等数据�
 * Maven 3.0.5+ (for building)
 
 ####开发工具
-* IntelliJ IDEA/Eclipse
+* IntelliJ IDEA, Eclipse
 
