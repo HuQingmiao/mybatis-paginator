@@ -13,7 +13,7 @@ mybatis-paginator，为采用myBatis的项目提供支持mysql/oracle等数据�
         </plugin>
     </plugins>
 ```
-* 在你的工程的业务层代码中，通过如下方式调用分页接口：
+* 在你的工程的代码中，可像这样使用分页接口：
 ```
     public void findBooks() {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -54,5 +54,5 @@ mybatis-paginator，为采用myBatis的项目提供支持mysql/oracle等数据�
 * Maven 3.0.5+ (for building)
 
 ####开发工具
-* IntelliJ IDEA, Eclipse
+* IntelliJ IDEA / Eclipse
 
