@@ -4,8 +4,10 @@ mybatis-paginator，为采用myBatis的项目提供支持mysql/oracle等数据�
  
  
 ##使用本分页插件，步骤如下：
-* 使用本分页插件，先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1kTF7xf5 密码: p154)，然后将这个jar包引入到你的工<p>程。
-* 在你的工程的mybatis.xml中，添加如下配置:
+1.使用本分页插件，先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1kTF7xf5 密码: p154)，然后将这个jar包引入到你的工程。
+<p/>
+2.在你的工程的mybatis.xml中，添加如下配置:
+<p/>
 ```
     <plugins>
         <plugin interceptor="com.github.walker.mybatis.paginator.OffsetLimitInterceptor">
@@ -13,7 +15,9 @@ mybatis-paginator，为采用myBatis的项目提供支持mysql/oracle等数据�
         </plugin>
     </plugins>
 ```
-* 在你的工程的代码中，可像这样使用分页接口：
+<p/>
+3.在你的工程的代码中，可像这样使用分页接口：
+<p/>
 ```
     public void findBooks() {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
