@@ -51,7 +51,7 @@ mybatis-paginator，为采用myBatis的项目提供分页插件，支持mysql、
 ```
 
 
-##参与本项目开发，请知道：
+##参与本开源项目开发，请知道：
 * 编译环境
      * Windows or Linux
      * Java 7+
