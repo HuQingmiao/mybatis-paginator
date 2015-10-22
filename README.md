@@ -57,6 +57,6 @@ mybatis-paginator，为采用myBatis的项目提供分页插件，支持mysql、
      * Java 7+
      * Maven 3.0.5+ (for building)
 
-####开发工具
-* IntelliJ IDEA / Eclipse
+* 开发工具
+     * IntelliJ IDEA / Eclipse
 
