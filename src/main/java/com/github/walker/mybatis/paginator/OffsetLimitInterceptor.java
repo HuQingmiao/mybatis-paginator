@@ -103,7 +103,7 @@ public class OffsetLimitInterceptor implements Interceptor {
         }
 
         //对总的结果集进行count
-        Callable<Integer> countThread = new Callable() {
+        Callable<Integer> countThread = new Callable<Integer>() {
             public Integer call() throws Exception {
                 Cache cache = ms.getCache();
                 Integer count = null;
