@@ -11,6 +11,21 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     </properties>
 
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>public</id>
+            <name>public</name>
+            <url>http://dev.mucfc.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <name>Releases</name>
+            <url>http://dev.mucfc.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -49,6 +64,23 @@
         -->
 
         <plugins>
+
+            <!-- 用于maven deploy时携带源码 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
