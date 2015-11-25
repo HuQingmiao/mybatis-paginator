@@ -133,8 +133,7 @@ public class Dialect {
         }
 
         //取 从'FROM'开始的部分SQL构造COUNT语句
-        final String from = " FROM ";
-        int fromPosi = this.indexIgloreCase(sql, from, 0, sql.length());
+        int fromPosi = this.indexIgloreCase(sql, " FROM ", 0, sql.length());
 
         StringBuffer countSql = new StringBuffer("SELECT COUNT(1) ");
         countSql.append(sql.substring(fromPosi));
