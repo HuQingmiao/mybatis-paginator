@@ -33,9 +33,9 @@ public class OracleDialect extends Dialect {
         final String from = " FROM ";
 
         sql = sql.trim();
-        int selectPosi = this.indexIgloreCase(sql, select, 0, sql.length());
+        int selectPosi = this.indexIgloreCase(sql, select);
 
-        int fromPosi = this.indexIgloreCase(sql, from, 0, sql.length());
+        int fromPosi = this.indexIgloreCase(sql, from);
 
         // 取得要查询的列, 即originSql中"SELECT" 到 "FROM" 之间的字符串
         String columns = sql.substring(selectPosi + select.length(), fromPosi);

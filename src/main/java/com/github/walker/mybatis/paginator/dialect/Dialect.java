@@ -127,13 +127,13 @@ public class Dialect {
         }
 
         // 为提升SQL性能，在count时去掉order by 子句。 -Updated by HuQingmiao 2015-08-25
-        int orderPosi = this.indexIgloreCase(sql, " ORDER BY ", 0, sql.length());
+        int orderPosi = this.indexIgloreCase(sql, " ORDER BY ");
         if (orderPosi > 0) {
             sql = sql.substring(0, orderPosi);
         }
 
         //取 从'FROM'开始的部分SQL构造COUNT语句
-        int fromPosi = this.indexIgloreCase(sql, " FROM ", 0, sql.length());
+        int fromPosi = this.indexIgloreCase(sql, " FROM ");
 
         StringBuffer countSql = new StringBuffer("SELECT COUNT(1) ");
         countSql.append(sql.substring(fromPosi));
@@ -165,18 +165,15 @@ public class Dialect {
 
 
     /**
-     * 忽略大小写, 检索baseStr中从位置startPos至endPos的子串, 看是否存在子串indexedStr. 返回第一次匹配的位置.
+     * 忽略大小写, 检索str中是否存在子串indexedStr. 返回第一次匹配的位置.
      *
-     * @param baseStr
+     * @param str
      * @param indexedStr
-     * @param startPos
-     * @param endPos
      * @return
      * @author HuQingmiao
      */
-    protected int indexIgloreCase(String baseStr, String indexedStr, int startPos, int endPos) {
-        String str = baseStr.toUpperCase();
-        return str.indexOf(indexedStr.toUpperCase());
+    protected int indexIgloreCase(String str, String indexedStr) {
+        return str.toUpperCase().indexOf(indexedStr.toUpperCase());
     }
 
     public static void main(String[] args) {
