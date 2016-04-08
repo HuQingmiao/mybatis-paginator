@@ -39,9 +39,9 @@ import java.util.concurrent.*;
         args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
 public class OffsetLimitInterceptor implements Interceptor {
 
-    private static Logger log = LoggerFactory.getLogger(OffsetLimitInterceptor.class);
+    //private static Logger log = LoggerFactory.getLogger(OffsetLimitInterceptor.class);
 
-    private static ExecutorService pool = Executors.newFixedThreadPool(2);
+    private ExecutorService pool = Executors.newFixedThreadPool(2);
 
     private static int MAPPED_STATEMENT_INDEX = 0;
     private static int PARAMETER_INDEX = 1;
@@ -121,7 +121,10 @@ public class OffsetLimitInterceptor implements Interceptor {
             }
         };
         Future<Integer> countFutrue = call(countThread, true);
-        return new PageList(queryFuture.get(), countFutrue.get());
+        PageList pageList = new PageList(queryFuture.get(), countFutrue.get());
+        pool.shutdown();
+
+        return pageList;
     }
 
     private <T> Future<T> call(Callable callable, boolean async) {
