@@ -8,7 +8,7 @@ mybatis-paginator，为采用myBatis的项目提供分页插件，支持mysql、
  
  
 ## 使用本分页插件，步骤如下：
-1.先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1dED1hux 密码: uq1b)，然后将这个jar包引入到你的工程。
+1.先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1dDYEFeT 密码: 7sgc)，然后将这个jar包引入到你的工程。
 <p/>
 2.打开你工程中的mybatis.xml，添加如下配置:
 <p/>
