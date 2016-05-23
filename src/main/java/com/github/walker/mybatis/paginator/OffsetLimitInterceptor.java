@@ -6,13 +6,14 @@ import com.github.walker.mybatis.paginator.support.SQLHelp;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
-import org.apache.ibatis.mapping.*;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.MappedStatement.Builder;
+import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class OffsetLimitInterceptor implements Interceptor {
 
     //private static Logger log = LoggerFactory.getLogger(OffsetLimitInterceptor.class);
 
-    static ExecutorService pool = Executors.newFixedThreadPool(2);
+    static ExecutorService pool = Executors.newCachedThreadPool();
 
     private static int MAPPED_STATEMENT_INDEX = 0;
     private static int PARAMETER_INDEX = 1;
