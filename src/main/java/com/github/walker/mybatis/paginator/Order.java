@@ -68,7 +68,7 @@ public class Order implements Serializable {
             return String.format(orderExpr.replaceAll("\\?", "%s"), property, direction == null ? "" : " " + direction.name());
         }
 
-        //如果排序属性中含有"_"，或仅含小写字母、数字，或仅含大写字母、数据， 则被认为是是列名，不需要再转换
+        //如果排序属性中含有"_"，或仅含小写字母、数字，或仅含大写字母、数字， 则被认为是是列名，不需要再转换
         if (property.contains("_") || property.matches("[a-z0-9]+") || property.matches("[A-Z0-9]+")) {
             return property + (direction == null ? "" : " " + direction.name());
         } else {
