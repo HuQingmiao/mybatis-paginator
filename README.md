@@ -8,7 +8,7 @@
 
  
 ## 使用说明
-&nbsp;&nbsp;&nbsp;1.先下载mybatis-paginator.jar(链接: https://pan.baidu.com/s/1eSBK0gU)，然后将这个jar包引入到你的工程。
+&nbsp;&nbsp;&nbsp;1.先下载mybatis-paginator.jar(链接: https://pan.baidu.com/s/1eSBK0gU )，然后将这个jar包引入到你的工程。
 <p/>
 &nbsp;&nbsp;&nbsp;2.打开你工程中的mybatis.xml，添加如下配置:
 <p/>
