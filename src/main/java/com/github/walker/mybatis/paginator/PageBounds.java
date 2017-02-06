@@ -106,4 +106,11 @@ public class PageBounds extends RowBounds implements Serializable {
     public int getLimit() {
         return this.limit;
     }
+
+    public boolean notValid()
+    {
+        return getOffset() == PageBounds.NO_ROW_OFFSET
+                && getLimit() == PageBounds.NO_ROW_LIMIT
+                && getOrders().isEmpty();
+    }
 }
