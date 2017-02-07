@@ -4,13 +4,13 @@
 
 
 ## mybatis-paginator-1.2.x
-mybatis-paginator，为采用myBatis的项目提供分页插件，支持mysql、Oracle、Vertica等数据库。目前，mybatis的分页插件不少，但多数分页插件接受的参数是页码、每页的记录条数，这就使得并不能查询从任意起始止到任意结束行的记录。为此，我在参考网友miemiedev的同名项目代码后，重新设计了本款分页插件，使得可以查询任意起止行范围内的记录，并对count()等SQL进行了优化。
+&nbsp;&nbsp;&nbsp;&nbsp;mybatis-paginator，为采用myBatis的项目提供分页插件，支持Mysql、MariaDB、Oracle、Vertica等数据库。目前，mybatis的分页插件不少，但多数分页插件接受的参数是页码、每页的记录条数，这就使得并不能查询从任意起始止到任意结束行的记录。为此，我在参考网友miemiedev的同名项目代码后，重新设计了本款分页插件，使得可以查询任意起止行范围内的记录，并对count()等SQL进行了优化。
+
  
- 
-## 使用本分页插件，步骤如下：
-1.先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1i5ez8GH 密码: h5bv)，然后将这个jar包引入到你的工程。
+## 使用说明
+&nbsp;&nbsp;&nbsp;1.先下载mybatis-paginator.jar(链接: https://pan.baidu.com/s/1eSBK0gU )，然后将这个jar包引入到你的工程。
 <p/>
-2.打开你工程中的mybatis.xml，添加如下配置:
+&nbsp;&nbsp;&nbsp;2.打开你工程中的mybatis.xml，添加如下配置:
 <p/>
 ```
     <plugins>
@@ -20,7 +20,7 @@ mybatis-paginator，为采用myBatis的项目提供分页插件，支持mysql、
     </plugins>
 ```
 <p/>
-3.你的程序可以这样调用分页接口：
+&nbsp;&nbsp;&nbsp;3.你的程序可以这样调用分页接口：
 <p/>
 ```
     public void findBooks() {
@@ -55,12 +55,8 @@ mybatis-paginator，为采用myBatis的项目提供分页插件，支持mysql、
 ```
 
 
-## 参与本项目开发，请知道：
-* 编译环境
+## 开发&编译
      * Windows or Linux
-     * Java 7+
-     * Maven 3.0.5+ (for building)
-
-* 开发工具
+     * Java 7
+     * Maven 3.0.5+
      * IntelliJ IDEA / Eclipse
-
