@@ -50,7 +50,6 @@ public class OffsetLimitInterceptor implements Interceptor {
 
     private String dialectClass;
 
-    @Override
     public void setProperties(Properties properties) {
         String dialectClass = (String) properties.get("dialectClass");
         this.dialectClass = dialectClass;
@@ -70,9 +69,7 @@ public class OffsetLimitInterceptor implements Interceptor {
 
         //DAO接口传有PageBounds参量
         PageBounds pageBounds = (PageBounds) rowBounds;
-        if (pageBounds.getOffset() == PageBounds.NO_ROW_OFFSET
-                && pageBounds.getLimit() == PageBounds.NO_ROW_LIMIT
-                && pageBounds.getOrders().isEmpty()) {
+        if (pageBounds.notValid()) {
             return new PageList((ArrayList) invocation.proceed());
         }
 
@@ -90,13 +87,14 @@ public class OffsetLimitInterceptor implements Interceptor {
         queryArgs[PARAMETER_INDEX] = dialect.getParameterObject();
         queryArgs[ROWBOUNDS_INDEX] = new RowBounds();
 
-        //采用异步方式，执行分页查询
+        //采用同步方式，执行分页查询
+        //修复bug: 提交后台线程破坏了spring 事务管理，参见TransactionSynchronizationManager
         Callable<List> queryThread = new Callable<List>() {
             public List call() throws Exception {
                 return (List) invocation.proceed();
             }
         };
-        Future<List> queryFuture = call(queryThread, true);
+        Future<List> queryFuture = call(queryThread, false);
 
         //如果不需要count总的结果集，则直接返回分页查询结果
         if (!pageBounds.isIfCount()) {
@@ -121,7 +119,7 @@ public class OffsetLimitInterceptor implements Interceptor {
                 return count;
             }
         };
-        Future<Integer> countFutrue = call(countThread, true);
+        Future<Integer> countFutrue = call(countThread, false);
         return new PageList(queryFuture.get(), countFutrue.get());
     }
 
