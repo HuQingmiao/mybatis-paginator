@@ -16,7 +16,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.*;
@@ -70,7 +69,7 @@ public class OffsetLimitInterceptor implements Interceptor {
         //DAO接口传有PageBounds参量
         PageBounds pageBounds = (PageBounds) rowBounds;
         if (pageBounds.notValid()) {
-            return new PageList((ArrayList) invocation.proceed());
+            return new PageList((List) invocation.proceed());
         }
 
         final Dialect dialect;
@@ -120,7 +119,7 @@ public class OffsetLimitInterceptor implements Interceptor {
             }
         };
         Future<Integer> countFutrue = call(countThread, false);
-        return new PageList(queryFuture.get(), countFutrue.get());
+        return new PageList(queryFuture.get(), countFutrue.get().intValue());
     }
 
     private <T> Future<T> call(Callable callable, boolean async) {

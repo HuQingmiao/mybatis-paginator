@@ -18,7 +18,7 @@ public class PageList<E> extends ArrayList<E> {
         super();
     }
 
-    public PageList(Collection<? extends E> c, Integer totalCount) {
+    public PageList(Collection<? extends E> c, int totalCount) {
         super(c);
         this.totalCount = totalCount;
     }
