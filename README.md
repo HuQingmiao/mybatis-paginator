@@ -53,8 +53,3 @@
     }
 ```
 
-
-### 开发&编译
-     * Java 7
-     * Maven 3.2.5+
-     * IntelliJ IDEA
