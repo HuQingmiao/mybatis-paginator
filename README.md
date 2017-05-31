@@ -7,7 +7,7 @@
 > QQ：443770574
 
 ### 使用说明
-&nbsp;&nbsp;&nbsp;1.先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1qXCcn0K )，然后将这个jar包引入到你的工程。
+&nbsp;&nbsp;&nbsp;1.先下载mybatis-paginator.jar(链接: http://pan.baidu.com/s/1gf7TNaF )，然后将这个jar包引入到你的工程。
 <p/>
 &nbsp;&nbsp;&nbsp;2.打开你工程中的mybatis.xml，添加如下配置:<p/>
 
