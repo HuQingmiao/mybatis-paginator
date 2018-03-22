@@ -76,7 +76,7 @@ public class Dialect {
         }
 
         if (pageBounds.isIfCount()) {
-            countSQL = getCountString(sql);
+            countSQL = getCountString(pageSQL);
         }
     }
 
