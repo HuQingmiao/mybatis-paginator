@@ -126,6 +126,11 @@ public class Dialect {
             return "SELECT COUNT(1) FROM (" + sql + ") " +WALKER_COUNT;
         }
 
+        //若含有UNION
+        if (sql.toUpperCase().startsWith("UNION ")) {
+            return "SELECT COUNT(1) FROM (" + sql + ") " +WALKER_COUNT;
+        }
+
         // 为提升SQL性能，在count时去掉order by 子句。 -Updated by HuQingmiao 2015-08-25
         int orderPosi = this.indexIgloreCase(sql, " ORDER BY ");
         if (orderPosi > 0) {
