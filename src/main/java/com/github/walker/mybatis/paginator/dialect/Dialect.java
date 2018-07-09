@@ -59,24 +59,28 @@ public class Dialect {
         if (bufferSql.lastIndexOf(";") == bufferSql.length() - 1) {
             bufferSql.deleteCharAt(bufferSql.length() - 1);
         }
-        String sql = bufferSql.toString();
+
+        //原输入SQL
+        String srcSql = bufferSql.toString();
 
         //替换制表符
-        pageSQL = sql.replaceAll("\t", " ").trim();
+        srcSql = srcSql.replaceAll("\t", " ").trim();
 
         //合并空格符
-        pageSQL = pageSQL.replaceAll("\\s{1,}", " ");
+        srcSql = srcSql.replaceAll("\\s{1,}", " ");
 
+
+        this.pageSQL = srcSql;
         if (pageBounds.getOrders() != null && !pageBounds.getOrders().isEmpty()) {
-            pageSQL = getSortString(sql, pageBounds.getOrders());
+            this.pageSQL = getSortString(srcSql, pageBounds.getOrders());
         }
         if (pageBounds.getOffset() != RowBounds.NO_ROW_OFFSET
                 || pageBounds.getLimit() != RowBounds.NO_ROW_LIMIT) {
-            pageSQL = getLimitString(pageSQL, pageBounds.getOffset(), pageBounds.getLimit());
+            this.pageSQL = getLimitString(this.pageSQL, pageBounds.getOffset(), pageBounds.getLimit());
         }
 
         if (pageBounds.isIfCount()) {
-            countSQL = getCountString(pageSQL);
+            this.countSQL = getCountString(srcSql);
         }
     }
 
@@ -102,7 +106,7 @@ public class Dialect {
 
 
     public String getCountSQL() {
-        return countSQL;
+        return this.countSQL;
     }
 
 
@@ -123,12 +127,12 @@ public class Dialect {
 
         //若含有DISTINCT
         if (sql.toUpperCase().startsWith("SELECT DISTINCT ")) {
-            return "SELECT COUNT(1) FROM (" + sql + ") " +WALKER_COUNT;
+            return "SELECT COUNT(1) FROM (" + sql + ") " + WALKER_COUNT;
         }
 
         //若含有UNION
-        if (sql.toUpperCase().startsWith("UNION ")) {
-            return "SELECT COUNT(1) FROM (" + sql + ") " +WALKER_COUNT;
+        if (sql.toUpperCase().contains(" UNION ")) {
+            return "SELECT COUNT(1) FROM (" + sql + ") " + WALKER_COUNT;
         }
 
         // 为提升SQL性能，在count时去掉order by 子句。 -Updated by HuQingmiao 2015-08-25
