@@ -14,7 +14,7 @@
 1.在你的项目pom中引入：
 ```
     <dependency>
-        <groupId>com.github.walker</groupId>    
+        <groupId>walker</groupId>    
         <artifactId>mybatis-paginator</artifactId>
         <version>${version}</version>
     </dependency> 
