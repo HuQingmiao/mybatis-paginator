@@ -1,55 +1,58 @@
 ### 项目说明
-&nbsp;&nbsp;&nbsp;&nbsp;Mybatis-paginator，为采用myBatis的项目提供分页插件，支持Mysql、MariaDB、Oracle、Vertica等数据库。目前，mybatis的分页插件不少，但多数分页插件接受的参数是页码、每页的记录条数，这就使得并不能查询从任意起始止到任意结束行的记录。为此，我在参考网友miemiedev的同名项目代码后，重新设计了本款分页插件，使得可以查询任意起止行范围内的记录，并对count()等SQL进行了优化。
 
+   Mybatis-paginator 是一款支持mysql、oracle、dm、vertica、oceanbase等数据库的分页插件。 主要特性：
+1. 可以查询任意起止行范围的记录。
+2. 可以按任意列排序而不用修改sql。 
+3. 支持mysql、oracle、dm、vertica、oceanbase、tdsql、达梦等多种数据库。
+
+
+### 运行环境
+ 当前版本在JAVA21上编译。
 
 ### 使用说明
-&nbsp;&nbsp;&nbsp;1. 下载源码，编译、打包，得到mybatis-paginator.jar，然后将这个jar包引入到你的工程。
-<p/>
-&nbsp;&nbsp;&nbsp;2. 打开你工程中的mybatis.xml，添加如下配置:<p/>
+
+1.在你的项目pom中引入：
+```
+    <dependency>
+        <groupId>com.github.walker</groupId>    
+        <artifactId>mybatis-paginator</artifactId>
+        <version>${version}</version>
+    </dependency> 
+```
+
+2.打开你工程中的mybatis.xml，添加如下配置:
 
 ```
     <plugins>
-        <plugin interceptor="com.github.walker.mybatis.paginator.OffsetLimitInterceptor">
-            <property name="dialectClass" value="com.github.walker.mybatis.paginator.dialect.MySQLDialect"/>
+        <plugin interceptor="walker.mybatis.paginator.OffsetLimitInterceptor">
+            <property name="dialectClass" value="dialect.walker.mybatis.paginator.MySQLDialect"/>
         </plugin>
     </plugins>
 ```
-<p/>
-&nbsp;&nbsp;&nbsp;3. 你的程序可以这样调用分页接口：<p/>
+
+3.你的程序可以这样调用分页接口：
 
 ```
-    public void findBooks() {
-        HashMap<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("title", "%UNIX%");
-        paramMap.put("minCost", new Float(21));
-        paramMap.put("maxCost", new Float(101));
+     // 查询条件: 书名以 “UNIX” 开头
+     HashMap<String, Object> paramMap = new HashMap<String, Object>();
+     paramMap.put("title", "UNIX%");
 
-        // new PageBounds(); //非分页方式，采用默认构造函数
-        // new PageBounds(int limit); //取前面的limit条记录
+     // 排序规则: 按书名正序、时间倒序
+     String sortString = "title.asc, createTime.desc";
 
-	//取从offset开始的limit条记录，offset从0开始
-        // new PageBounds(int offset, int limit); 
+     // 查询，获得符合条件的第 3~13行
+     PageBounds pageBounds = new PageBounds(3, 10, Order.formString(sortString));
+     ArrayList<Book> rsList = bookDao.findBooks(paramMap, pageBounds);  
+       
+     // 打印结果  
+     PageList<Book> pageList = (PageList<Book>) rsList;
+     log.info("符合条件的总的记录数: " + pageList.size()); 
+     log.info("本页记录数: " + rsList.size());
+   
 
-	//按cost升序、book_id倒序排列后再分页
-        // new PageBounds(int page, int limit, Order.formString("cost.asc, book_id.desc"));
+  另外，分页参数PageBounds还有更多丰富的功能：   
+     new PageBounds();                                 // 采用默认构造函数，就相当于非分页方式
+     new PageBounds(Order.formString(sortString));     // 按书名正序、时间倒序排列，获取符合条件的所有记录
+     new PageBounds(10, Order.formString(sortString)); // 按书名正序、时间倒序排列, 获取符合条件的前10条记录
 
-	//如果想排序的话,以逗号分隔多项排序,若查询语句中有ORDER BY, 则仍然会以此为准。
-        String sortString = "cost.asc, book_id.desc";
-	
-	//取第4条后面的3条记录
-        PageBounds pageBounds = new PageBounds(4, 3, Order.formString(sortString));
-        List<Book> bookList = bookDao.find(paramMap, pageBounds);
-
-        PageList<Book> pageList = (PageList<Book>) bookList;// 获得结果集条总数
-        log.info("本页记录数: " + bookList.size());
-        log.info("总的记录数: " + pageList.size());
-        for (Book book : bookList) {
-            log.info(book.getBookId() + " " + book.getTitle() + " " + book.getCost());
-        }
-    }
 ```
-
-
-### 联系我
-> 个人博客：[http://my.oschina.net/HuQingmiao](http://my.oschina.net/HuQingmiao)；
-> QQ：443770574
